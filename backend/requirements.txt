@@ -1,0 +1,5 @@
+fastapi>=0.115
+uvicorn[standard]>=0.32
+python-dotenv>=1.0
+# Treiber für die Shadow-DB, je nach Datenbank wählen (Annahme: Microsoft SQL Server wie die JTL-Wawi):
+# pyodbc>=5.1
