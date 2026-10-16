@@ -10,6 +10,17 @@ Internes Tool, das dem Marketing-Team jeden Morgen priorisierte Content-Ideen f�
 | `backend/` | API (FastAPI), liest später die Shadow-DB der JTL-Wawi (nur lesend) | Gerüst, noch nicht angebunden |
 | `docs/` | Datenvertrag zwischen Shadow-DB, Backend und Frontend | Entwurf |
 
+## Funktionen im Frontend
+
+- **Heute:** Top-Ideen mit Score, Anlässe, Content-Mix, Datenstand
+- **Ideen-Detail:** Hook, Skript, Caption, Bildbriefing, Prüfliste und automatische Regelprüfung
+- **Kalender:** Anlässe und Beiträge pro Monat, inklusive angewendeter Plan-Vorlagen
+- **Plan-Vorlagen:** wiederverwendbare Abläufe pro Woche und Wochentag, anlegen, bearbeiten, duplizieren, per Klick im Kalender anwenden
+- **Formate:** eigene Formate wie Q&A oder Tutorial verwalten (Kanäle, Länge, Aufbau, Hinweise für die KI)
+- **Regeln:** Regeln pro Kanal und pro Format (Begriffe verbieten, Pflichtbegriffe, Hinweise zur manuellen Prüfung), mit Vorlagen für Marken und Wettbewerbsrecht (Orientierung, keine Rechtsberatung)
+
+Formate, Regeln, Vorlagen und Kalender-Einträge werden vorerst im Browser (localStorage) gespeichert, also pro Rechner und Browser. Sobald das Backend steht, werden sie dort zentral abgelegt, damit das ganze Team dieselben Einstellungen nutzt.
+
 ## Frontend lokal starten
 
 ```bash

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import Today from './views/Today.jsx';
 import Idea from './views/Idea.jsx';
 import Calendar from './views/Calendar.jsx';
+import Plans from './views/Plans.jsx';
+import Rules from './views/Rules.jsx';
+import Formats from './views/Formats.jsx';
 import { api } from './api.js';
 
 // Einfaches Hash-Routing, damit GitHub Pages ohne Server-Konfiguration funktioniert.
@@ -22,6 +25,9 @@ export default function App() {
     ['heute', 'Heute', '#/'],
     ['kalender', 'Kalender', '#/kalender'],
     ['idee', 'Ideen-Archiv', '#/idee/jbl-bassprotube-bware'],
+    ['vorlagen', 'Plan-Vorlagen', '#/vorlagen'],
+    ['formate', 'Formate', '#/formate'],
+    ['regeln', 'Regeln', '#/regeln'],
   ];
 
   return (
@@ -43,7 +49,19 @@ export default function App() {
         </div>
       </nav>
       <main className="main">
-        {page === 'kalender' ? <Calendar /> : page === 'idee' ? <Idea id={id} /> : <Today />}
+        {page === 'kalender' ? (
+          <Calendar />
+        ) : page === 'idee' ? (
+          <Idea id={id} />
+        ) : page === 'vorlagen' ? (
+          <Plans />
+        ) : page === 'formate' ? (
+          <Formats />
+        ) : page === 'regeln' ? (
+          <Rules />
+        ) : (
+          <Today />
+        )}
       </main>
     </div>
   );

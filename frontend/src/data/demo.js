@@ -11,6 +11,8 @@ export const ideas = [
     title: 'Am Sonntag wird es früher dunkel: Dashcam als Sicherheits-Tipp',
     why: 'Die Uhren werden am 25.10. umgestellt, die Abendfahrten beginnen früher. Passt zu Dashcams und Kameras im Sortiment, die Kenwood DRV-A510 gibt es aktuell als B-Ware.',
     data: 'Kalender, Sale-Liste',
+    channels: ['Instagram'],
+    formatId: 'story',
     detail: null,
   },
   {
@@ -22,6 +24,8 @@ export const ideas = [
     title: 'Wunschliste anlegen und Frühzugang zum Black Friday sichern',
     why: 'Der Vorlauf startet am 16.11. Wer früh Wunschlisten und Newsletter-Anmeldungen sammelt, hat am 27.11. eine warme Zielgruppe.',
     data: 'Kalender, Newsletter-Anmeldungen',
+    channels: ['Instagram', 'Newsletter'],
+    formatId: 'story',
     detail: null,
   },
   {
@@ -33,6 +37,8 @@ export const ideas = [
     title: 'B-Ware-Check: JBL BASSPRO Tube 12 mit Zustandsprüfung und Preis-Reveal',
     why: '239,00 € statt UVP 349,50 €, rund 32 % unter UVP. Einzelstück-Knappheit und ein starker Vorher-Nachher-Hook.',
     data: 'Sale-Liste, Bestand',
+    channels: ['Instagram', 'TikTok'],
+    formatId: 'bware-check',
     detail: {
       tags: ['Instagram Reel', 'TikTok', 'Angebot und Aktion', 'B-Ware-Einzelstück'],
       whyNow:
@@ -79,6 +85,8 @@ export const ideas = [
     title: '410 € gegen 192 €: Sony XS-692ES als B-Ware im Soundcheck',
     why: 'Rund 53 % unter UVP. Der Preisvergleich ist der Hook, der Soundcheck liefert Vertrauen.',
     data: 'Sale-Liste',
+    channels: ['YouTube', 'Instagram'],
+    formatId: 'bware-check',
     detail: null,
   },
   {
@@ -90,6 +98,8 @@ export const ideas = [
     title: 'Upgrade in 10 Minuten: Hifonics ZEUS ZSF 6.2C für Ford',
     why: '229,00 €, sofort verfügbar, Lieferzeit 1 bis 3 Werktage. Gut für die Reihe fahrzeugspezifischer Upgrades.',
     data: 'Highlights, Bestand',
+    channels: ['Instagram', 'Facebook'],
+    formatId: 'karussell',
     detail: null,
   },
 ];

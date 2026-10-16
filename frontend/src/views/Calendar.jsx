@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '../api.js';
+import { useStored } from '../store.js';
 
 const MONTHS = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
 const iso = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -19,6 +20,7 @@ export default function Calendar() {
   const [data, setData] = useState(null);
   const [error, setError] = useState('');
   const [cursor, setCursor] = useState({ year: 2026, month: 10 });
+  const [userEvents, setUserEvents] = useStored('userEvents', {});
 
   useEffect(() => {
     api.getCalendar().then(setData).catch((e) => setError(e.message));
@@ -32,6 +34,8 @@ export default function Calendar() {
     setCursor({ year: d.getFullYear(), month: d.getMonth() });
   };
   const weeks = buildWeeks(cursor.year, cursor.month);
+  const eventsFor = (key) => [...(data.events[key] || []), ...(userEvents[key] || [])];
+  const userCount = Object.values(userEvents).reduce((n, list) => n + list.length, 0);
 
   return (
     <>
@@ -43,9 +47,23 @@ export default function Calendar() {
         <div className="btn-row">
           <button className="btn" onClick={() => shift(-1)}>Vorheriger Monat</button>
           <button className="btn" onClick={() => shift(1)}>Nächster Monat</button>
-          <button className="btn primary">Neuer Beitrag</button>
+          <a className="btn primary" href="#/vorlagen">Vorlage anwenden</a>
         </div>
       </header>
+
+      {userCount > 0 && (
+        <div className="demo-banner row" style={{ alignItems: 'center', justifyContent: 'space-between' }}>
+          <span>{userCount} Einträge aus Plan-Vorlagen sind im Kalender.</span>
+          <button
+            className="btn quiet"
+            onClick={() => {
+              if (window.confirm('Alle Einträge aus Plan-Vorlagen aus dem Kalender entfernen?')) setUserEvents({});
+            }}
+          >
+            Einträge entfernen
+          </button>
+        </div>
+      )}
 
       <div className="legend">
         <span><i className="sw" style={{ background: 'var(--navy)' }} />Anlass</span>
@@ -60,11 +78,11 @@ export default function Calendar() {
               {['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'].map((d) => <div key={d} className="dow">{d}</div>)}
               {weeks.flat().map((day) => {
                 const inMonth = day.getMonth() === cursor.month;
-                const events = data.events[iso(day)] || [];
+                const events = eventsFor(iso(day));
                 return (
                   <div key={iso(day)} className={`day ${inMonth ? '' : 'other'}`}>
                     <div className="n">{day.getDate()}</div>
-                    {events.map((e) => <div key={e.text} className={`ev ${e.type}`}>{e.text}</div>)}
+                    {events.map((e, i) => <div key={`${e.text}-${i}`} className={`ev ${e.type}`}>{e.text}</div>)}
                   </div>
                 );
               })}

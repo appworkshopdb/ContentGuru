@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '../api.js';
+import { useStored } from '../store.js';
+import { seedRules } from '../data/seed.js';
+import { evaluate } from '../rules.js';
 
 export default function Idea({ id }) {
   const [idea, setIdea] = useState(undefined);
   const [copied, setCopied] = useState(false);
+  const [rules] = useStored('rules', seedRules);
 
   useEffect(() => {
     api.getIdea(id).then(setIdea).catch(() => setIdea(null));
@@ -20,6 +24,15 @@ export default function Idea({ id }) {
   }
 
   const d = idea.detail;
+  const check = d
+    ? evaluate(
+        rules,
+        [idea.title, d.hook, ...d.scenes.map((s) => s.text), d.caption].join('\n'),
+        { channels: idea.channels || [], formatId: idea.formatId },
+      )
+    : null;
+  const fails = check ? check.results.filter((r) => r.level === 'fail') : [];
+  const notes = check ? check.results.filter((r) => r.level === 'note') : [];
 
   return (
     <>
@@ -113,6 +126,29 @@ export default function Idea({ id }) {
                 <div key={c.name} className="col" style={{ gap: 4 }}>
                   <div className="between-text"><span>{c.name}</span><span className="muted">{c.value} von {c.max}</span></div>
                   <div className="bar"><div style={{ width: `${(c.value / c.max) * 100}%` }} /></div>
+                </div>
+              ))}
+            </section>
+
+            <section className="card">
+              <h2>Regelprüfung</h2>
+              <div className="muted small">
+                {check.checked} aktive Regeln geprüft. <a href="#/regeln">Regeln verwalten</a>
+              </div>
+              {fails.length === 0 && (
+                <div className="rule ok"><strong>Keine Regelverstöße gefunden.</strong></div>
+              )}
+              {fails.map((r) => (
+                <div key={r.rule.id} className="rule fail">
+                  <strong>Verstoß: {r.rule.name}</strong>
+                  <span>{r.detail}</span>
+                  {r.rule.message && <span className="muted small">{r.rule.message}</span>}
+                </div>
+              ))}
+              {notes.map((r) => (
+                <div key={r.rule.id} className="rule note">
+                  <strong>Bitte prüfen: {r.rule.name}</strong>
+                  {r.rule.message && <span className="muted small">{r.rule.message}</span>}
                 </div>
               ))}
             </section>

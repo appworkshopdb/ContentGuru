@@ -99,3 +99,35 @@ p { margin: 0; }
 .ev.entwurf { background: var(--chip); color: var(--navy); border: 1px dashed var(--muted); }
 
 .demo-banner { background: #fde9d2; color: #5e2a03; font-size: 14px; padding: 10px 14px; border-radius: 8px; }
+
+/* Formulare */
+.field { display: flex; flex-direction: column; gap: 4px; font-size: 14px; min-width: 0; }
+.field > span { font-weight: 600; }
+input[type='text'], input[type='number'], input[type='date'], select, textarea {
+  font: 400 15px 'Barlow', sans-serif; padding: 10px 12px; min-height: 44px; width: 100%;
+  border: 1px solid #c9ccda; border-radius: 8px; background: #fff; color: var(--navy);
+}
+textarea { min-height: 110px; resize: vertical; line-height: 1.5; }
+input[type='checkbox'] { width: 20px; height: 20px; accent-color: var(--navy); }
+.checks-row { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+.checks-row label { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; min-height: 36px; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--orange); outline-offset: 2px;
+}
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Listenauswahl links */
+.pick {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 6px; text-align: left; width: 100%;
+  padding: 14px 16px; border-radius: 12px; border: 1px solid var(--line); background: #fff;
+  font: 400 15px 'Barlow', sans-serif; color: var(--navy); cursor: pointer;
+}
+.pick.on { border: 2px solid var(--orange); padding: 13px 15px; }
+.slot { display: flex; flex-wrap: wrap; gap: 10px; padding: 14px 0; border-top: 1px solid var(--chip); align-items: flex-start; }
+
+/* Regelprüfung */
+.rule { display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border-radius: 8px; font-size: 14px; line-height: 1.45; }
+.rule.ok { background: #e6f4ea; color: #14532d; }
+.rule.fail { background: #fde8e8; color: #7a1010; }
+.rule.note { background: #fdf3dd; color: #5e3b03; }
+.rule .muted { color: inherit; opacity: 0.85; }
